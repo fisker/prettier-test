@@ -1,0 +1,22 @@
+name: Prettier Test
+on: push
+
+jobs:
+  prettier-test:
+    runs-on: ubuntu-latest
+    name: Prettier Check EOF new-line
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - run: npm i
+
+      - name: Run check no EOF new-line
+        if: always()
+        run: npm run prettier -- -c index-no-lf.js
+
+      - name: Run check with EOF new-line
+        if: always()
+        run: npm run prettier -- -c index-lf.js
